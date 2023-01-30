@@ -11,12 +11,14 @@ logger = logging.getLogger(__name__)
 
 @dataclasses.dataclass
 class VariantOption:
+    """A single variant option (a value and a weight)."""
     value: Command
     weight: float = 1.0
 
 
 @dataclasses.dataclass
 class VariantCommand(Command):
+    """A command that emits zero or more of its child commands."""
     variants: list[VariantOption]
     min_bound: int = 1
     max_bound: int = 1
@@ -38,10 +40,12 @@ class VariantCommand(Command):
 
     @property
     def weights(self) -> list[float]:
+        """Return each variant's weight."""
         return [p.weight for p in self.variants]
 
     @property
     def values(self) -> list[Command]:
+        """Return each variant's value."""
         return [p.value for p in self.variants]
 
     @classmethod
@@ -53,6 +57,7 @@ class VariantCommand(Command):
         max_bound: int = 1,
         separator: str = ",",
     ) -> VariantCommand:
+        """Create a VariantCommand from a list of strings and optionally weights."""
         vals = [LiteralCommand(str(v)) for v in literals]
         if weights is None:
             weights = [1.0] * len(vals)
@@ -65,6 +70,7 @@ class VariantCommand(Command):
         )
 
     def get_value_combinations(self, k: int) -> Iterable[list[Command]]:
+        """Return all k-length combinations of this command's variant values."""
         if k <= 0:
             yield []
         else:

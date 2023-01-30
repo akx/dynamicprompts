@@ -7,6 +7,7 @@ from dynamicprompts.commands import Command
 
 @dataclasses.dataclass
 class LiteralCommand(Command):
+    """A command that emits a single literal string."""
     literal: str
 
     def __add__(self, other):

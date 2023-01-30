@@ -70,6 +70,7 @@ def clean_up_magic_prompt(orig_prompt: str, prompt: str) -> str:
 
 
 class MagicPromptGenerator(PromptGenerator):
+    """Generates prompts using language models to extend a given prompt."""
     generator: Pipeline | None = None
     tokenizer: AutoTokenizer | None = None
     model: AutoModelForCausalLM | None = None

@@ -12,6 +12,7 @@ MODEL_NAME = "en_core_web_sm"
 
 
 class AttentionGenerator(PromptGenerator):
+    """Generates prompts with emphasis on a random noun chunk."""
     _prompt_generator: PromptGenerator
 
     def __init__(
@@ -58,7 +59,9 @@ class AttentionGenerator(PromptGenerator):
         return prompt
 
     def generate(self, *args, **kwargs) -> list[str]:
-        prompts = self._prompt_generator.generate(*args, **kwargs)
-        new_prompts = [self._add_emphasis(p) for p in prompts]
-
-        return new_prompts
+        """Generate prompts with emphasis on a random noun chunk."""
+        return [
+            self._add_emphasis(prompt)
+            for prompt
+            in self._prompt_generator.generate(*args, **kwargs)
+        ]

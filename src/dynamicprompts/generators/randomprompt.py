@@ -11,6 +11,7 @@ logger = logging.getLogger(__name__)
 
 
 class RandomPromptGenerator(PromptGenerator):
+    """Generates prompts using the random sampler."""
     def __init__(
         self,
         wildcard_manager: WildcardManager,

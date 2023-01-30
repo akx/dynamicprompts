@@ -11,6 +11,7 @@ from dynamicprompts.commands import (
 
 @dataclasses.dataclass
 class SequenceCommand(Command):
+    """A command that consists of multiple child commands."""
     tokens: list[Command]
     separator: str = ""
 
@@ -35,6 +36,7 @@ class SequenceCommand(Command):
         *,
         separator: str = "",
     ) -> SequenceCommand:
+        """Create a SequenceCommand from a list of strings and/or Commands."""
         return SequenceCommand(
             tokens=[
                 v if isinstance(v, Command) else LiteralCommand(str(v)) for v in values

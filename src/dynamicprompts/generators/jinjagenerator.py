@@ -119,6 +119,7 @@ class PromptExtension(Extension):
 
 
 class JinjaGenerator(PromptGenerator):
+    """Generates prompts using Jinja templates."""
     def __init__(
         self,
         wildcard_manager: WildcardManager | None = None,
@@ -132,6 +133,7 @@ class JinjaGenerator(PromptGenerator):
             self._context = {}
 
     def generate(self, template: str, num_prompts: int = 1) -> list[str]:
+        """Generate prompts using a Jinja template."""
         env = Environment(
             extensions=[
                 RandomExtension,

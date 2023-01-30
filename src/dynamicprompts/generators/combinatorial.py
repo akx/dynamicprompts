@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__)
 
 
 class CombinatorialPromptGenerator(PromptGenerator):
+    """Generates prompts using the combinatorial sampler, i.e. returns all possibilities."""
     def __init__(
         self,
         wildcard_manager: WildcardManager,
@@ -28,6 +29,7 @@ class CombinatorialPromptGenerator(PromptGenerator):
         template: str | None,
         max_prompts: int | None = constants.MAX_IMAGES,
     ) -> Iterable[str]:
+        """Generate up to max_prompts prompts using the combinatorial sampler."""
         if template is None or len(template) == 0:
             return [""]
         prompts = self._sampler.generate_prompts(template, max_prompts)

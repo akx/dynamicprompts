@@ -15,6 +15,7 @@ logger = logging.getLogger(__name__)
 
 
 class FeelingLuckyGenerator(PromptGenerator):
+    """Generates prompts using the Lexica.art API."""
     _generator: PromptGenerator
 
     def __init__(self, generator: PromptGenerator | None = None) -> None:
@@ -24,6 +25,7 @@ class FeelingLuckyGenerator(PromptGenerator):
             self._generator = generator
 
     def generate(self, search_query: str, num_prompts: int) -> list[str]:
+        """Query the Lexica.art API for prompts based on the search query given."""
         search_query = self._generator.generate(search_query, 1)[0]
 
         if search_query.strip() == "":

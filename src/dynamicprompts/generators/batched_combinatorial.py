@@ -9,6 +9,7 @@ logger = logging.getLogger(__name__)
 
 
 class BatchedCombinatorialPromptGenerator(PromptGenerator):
+    """Calls the wrapped generator multiple times to generate more prompts."""
     def __init__(self, generator: PromptGenerator, batches: int = 1) -> None:
         self._generator = generator
         self._batches = batches
@@ -18,6 +19,7 @@ class BatchedCombinatorialPromptGenerator(PromptGenerator):
         template: str,
         max_prompts: int = constants.MAX_IMAGES,
     ) -> list[str]:
+        """Generate prompts by calling the wrapped generator multiple times."""
         images = []
 
         for _ in range(self._batches):
