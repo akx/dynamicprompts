@@ -1,5 +1,8 @@
-from dynamicprompts.parser.parse import Parser
-from dynamicprompts.parser.random_generator import RandomActionBuilder
+from pprint import pprint
+
+from dynamicprompts.commands import SequenceCommand
+from dynamicprompts.parser.parse import parse
+from dynamicprompts.parser.random_generator import RandomGenerator
 from dynamicprompts.wildcardmanager import WildcardManager
 
 
@@ -9,5 +12,8 @@ prefix,
 ({0$$a|b} {1$$c|d|e}),
 suffix
     """.strip()
-    parsed = Parser(builder=RandomActionBuilder(wildcard_manager=wildcard_manager)).parse(prompt)
-    assert parsed.prompts() == 8
+    parsed = parse(prompt)
+    pprint(parsed, width=120)  # noqa: T203
+    assert isinstance(parsed, SequenceCommand)
+    rg = RandomGenerator(wildcard_manager=wildcard_manager, ignore_whitespace=True)
+    list(rg.generate_prompts(parsed, 1))
